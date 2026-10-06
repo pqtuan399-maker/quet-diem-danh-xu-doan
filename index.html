@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1"
+  >
+
+  <title>Quét QR Điểm Danh Xứ Đoàn</title>
+
+  <script
+    src="https://unpkg.com/html5-qrcode"
+    type="text/javascript">
+  </script>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #1f2328;
+      color: #ffffff;
+    }
+
+    .app {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .header {
+      background: #315b7d;
+      border-radius: 18px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .header p {
+      margin: 8px 0 0;
+      font-size: 13px;
+      opacity: .9;
+    }
+
+    .card {
+      background: #111111;
+      border: 1px solid #444;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    #reader {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 14px;
+    }
+
+    button {
+      width: 100%;
+      min-height: 50px;
+      border: 0;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: bold;
+      margin-top: 12px;
+      cursor: pointer;
+    }
+
+    .start {
+      background: #315b7d;
+      color: white;
+    }
+
+    .stop {
+      background: #3b3f44;
+      color: white;
+    }
+
+    .status {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #292d32;
+      line-height: 1.5;
+      font-size: 14px;
+      word-break: break-word;
+    }
+
+    .ok {
+      background: #143d25;
+      color: #b9f6ca;
+    }
+
+    .error {
+      background: #4a1717;
+      color: #ffcdd2;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+  <div class="header">
+
+    <h1>⛪ QUÉT QR ĐIỂM DANH</h1>
+
+    <p>
+      Xứ đoàn • Camera QR Scanner
+    </p>
+
+  </div>
+
+
+  <div class="card">
+
+    <div id="reader"></div>
+
+    <button
+      id="startBtn"
+      class="start"
+      type="button">
+      📷 BẬT CAMERA
+    </button>
+
+    <button
+      id="stopBtn"
+      class="stop"
+      type="button"
+      style="display:none">
+      ⏹ DỪNG CAMERA
+    </button>
+
+    <div
+      id="status"
+      class="status">
+      Nhấn BẬT CAMERA để bắt đầu.
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+  /*
+   * ==============================================================
+   * DÁN URL WEB APP 2A CỦA BẠN VÀO ĐÂY
+   * ==============================================================
+   */
+
+  const WEB_APP_URL =
+    "https://script.google.com/macros/s/AKfycbxkDvxq50NMCg51ehGS_82vYJNDR4-wiSOq72B8bl94xZFWFQ0MHI4cPUsEevm5FDMzoA/exec";
+
+
+  let scanner = null;
+
+  let busy = false;
+
+
+  const startBtn =
+    document.getElementById("startBtn");
+
+  const stopBtn =
+    document.getElementById("stopBtn");
+
+  const statusBox =
+    document.getElementById("status");
+
+
+  function setStatus(
+    message,
+    type = ""
+  ) {
+
+    statusBox.className =
+      "status " + type;
+
+    statusBox.textContent =
+      message;
+
+  }
+
+
+  /*
+   * ==============================================================
+   * CHUẨN HÓA ID
+   * ==============================================================
+   */
+
+  function extractId(text) {
+
+    if (!text) {
+      return "";
+    }
+
+
+    let value =
+      String(text).trim();
+
+
+    /*
+     * QR dạng:
+     *
+     * https://.../exec?id=XD-XXXXXXXXXXXX
+     */
+
+    try {
+
+      const url =
+        new URL(value);
+
+
+      const id =
+        url.searchParams.get("id");
+
+
+      if (id) {
+
+        value = id;
+
+      }
+
+    } catch (e) {
+
+      // Không phải URL.
+    }
+
+
+    /*
+     * QR cũ dạng:
+     *
+     * XD|XD-XXXXXXXXXXXX
+     */
+
+    value =
+      value.replace(
+        /^XD\|/i,
+        ""
+      );
+
+
+    value =
+      value
+        .trim()
+        .toUpperCase();
+
+
+    /*
+     * ID Giai đoạn 1:
+     *
+     * XD- + 12 ký tự HEX.
+     */
+
+    if (
+      !/^XD-[A-F0-9]{12}$/.test(value)
+    ) {
+
+      return "";
+
+    }
+
+
+    return value;
+
+  }
+
+
+  /*
+   * ==============================================================
+   * QUÉT THÀNH CÔNG
+   * ==============================================================
+   */
+
+  async function onScanSuccess(
+    decodedText
+  ) {
+
+    if (busy) {
+      return;
+    }
+
+
+    const id =
+      extractId(
+        decodedText
+      );
+
+
+    if (!id) {
+
+      setStatus(
+        "❌ Mã QR không thuộc hệ thống Xứ đoàn.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    busy = true;
+
+
+    setStatus(
+      "✅ Đã nhận: " +
+      id +
+      "\nĐang mở hệ thống điểm danh...",
+      "ok"
+    );
+
+
+    /*
+     * Dừng camera trước khi chuyển trang.
+     */
+
+    try {
+
+      if (scanner) {
+
+        await scanner.stop();
+
+      }
+
+    } catch (e) {}
+
+
+    /*
+     * Chuyển sang Web App 2A.
+     */
+
+    const destination =
+      WEB_APP_URL +
+      "?id=" +
+      encodeURIComponent(id);
+
+
+    window.location.href =
+      destination;
+
+  }
+
+
+  /*
+   * ==============================================================
+   * BẬT CAMERA
+   * ==============================================================
+   */
+
+  async function startCamera() {
+
+    if (
+      !WEB_APP_URL ||
+      WEB_APP_URL.includes(
+        "DAN_URL_WEB_APP"
+      )
+    ) {
+
+      setStatus(
+        "❌ Chưa cấu hình WEB_APP_URL.",
+        "error"
+      );
+
+      return;
+
+    }
+
+
+    busy = false;
+
+
+    scanner =
+      new Html5Qrcode(
+        "reader"
+      );
+
+
+    try {
+
+      await scanner.start(
+
+        {
+          facingMode: "environment"
+        },
+
+        {
+          fps: 12,
+
+          qrbox: {
+            width: 250,
+            height: 250
+          }
+        },
+
+        onScanSuccess,
+
+        function() {
+          // Bỏ qua frame không đọc được.
+        }
+
+      );
+
+
+      startBtn.style.display =
+        "none";
+
+
+      stopBtn.style.display =
+        "block";
+
+
+      setStatus(
+        "📷 Camera đã bật. Đưa mã QR vào giữa khung."
+      );
+
+
+    } catch (err) {
+
+      setStatus(
+        "❌ Không thể bật camera: " +
+        err,
+        "error"
+      );
+
+    }
+
+  }
+
+
+  /*
+   * ==============================================================
+   * DỪNG CAMERA
+   * ==============================================================
+   */
+
+  async function stopCamera() {
+
+    if (!scanner) {
+      return;
+    }
+
+
+    try {
+
+      await scanner.stop();
+
+      scanner.clear();
+
+    } catch (e) {}
+
+
+    scanner = null;
+
+
+    startBtn.style.display =
+      "block";
+
+
+    stopBtn.style.display =
+      "none";
+
+
+    setStatus(
+      "Camera đã dừng."
+    );
+
+  }
+
+
+  startBtn.addEventListener(
+    "click",
+    startCamera
+  );
+
+
+  stopBtn.addEventListener(
+    "click",
+    stopCamera
+  );
+
+</script>
+
+</body>
+
+</html>
