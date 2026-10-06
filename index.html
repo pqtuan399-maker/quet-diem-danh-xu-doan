@@ -10,12 +10,20 @@
     content="width=device-width, initial-scale=1, maximum-scale=1"
   >
 
-  <title>Quét QR Điểm Danh Xứ Đoàn</title>
+  <meta
+    name="theme-color"
+    content="#17365d"
+  >
+
+  <title>
+    Điểm danh Xứ đoàn
+  </title>
+
 
   <script
-    src="https://unpkg.com/html5-qrcode"
-    type="text/javascript">
+    src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js">
   </script>
+
 
   <style>
 
@@ -23,91 +31,481 @@
       box-sizing: border-box;
     }
 
+
     body {
+
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #1f2328;
-      color: #ffffff;
+
+      background: #eef2f6;
+
+      color: #1f2937;
+
+      font-family:
+        Arial,
+        sans-serif;
+
     }
+
 
     .app {
-      max-width: 520px;
+
+      width: 100%;
+
+      max-width: 560px;
+
       margin: 0 auto;
-      padding: 16px;
+
+      padding: 14px;
+
     }
+
 
     .header {
-      background: #315b7d;
+
+      background: #17365d;
+
+      color: #ffffff;
+
       border-radius: 18px;
-      padding: 20px;
+
+      padding: 18px;
+
       text-align: center;
-      margin-bottom: 16px;
+
+      margin-bottom: 14px;
+
     }
+
 
     .header h1 {
+
       margin: 0;
-      font-size: 22px;
+
+      font-size: 21px;
+
     }
+
 
     .header p {
-      margin: 8px 0 0;
+
+      margin: 7px 0 0;
+
       font-size: 13px;
+
       opacity: .9;
+
     }
+
 
     .card {
-      background: #111111;
-      border: 1px solid #444;
+
+      background: #ffffff;
+
+      border: 1px solid #dfe5eb;
+
       border-radius: 16px;
+
       padding: 16px;
-      margin-bottom: 14px;
+
+      margin-bottom: 13px;
+
     }
 
-    #reader {
-      width: 100%;
-      overflow: hidden;
-      border-radius: 14px;
+
+    .hidden {
+
+      display: none !important;
+
     }
+
+
+    .section-title {
+
+      margin-bottom: 13px;
+
+      color: #17365d;
+
+      font-size: 17px;
+
+      font-weight: 700;
+
+    }
+
+
+    label {
+
+      display: block;
+
+      margin: 10px 0 6px;
+
+      font-size: 13px;
+
+      font-weight: bold;
+
+    }
+
+
+    input {
+
+      width: 100%;
+
+      min-height: 48px;
+
+      padding: 0 13px;
+
+      border: 1px solid #cbd5e1;
+
+      border-radius: 11px;
+
+      font-size: 16px;
+
+      outline: none;
+
+    }
+
+
+    input:focus {
+
+      border-color: #315b7d;
+
+    }
+
 
     button {
+
       width: 100%;
-      min-height: 50px;
+
+      min-height: 48px;
+
+      margin-top: 10px;
+
       border: 0;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: bold;
-      margin-top: 12px;
+
+      border-radius: 11px;
+
+      padding: 10px 14px;
+
       cursor: pointer;
+
+      font-size: 15px;
+
+      font-weight: 700;
+
     }
 
-    .start {
+
+    button:disabled {
+
+      opacity: .55;
+
+      cursor: default;
+
+    }
+
+
+    .primary {
+
       background: #315b7d;
+
       color: white;
+
     }
 
-    .stop {
-      background: #3b3f44;
+
+    .success {
+
+      background: #14833b;
+
       color: white;
+
     }
 
-    .status {
-      margin-top: 14px;
-      padding: 12px;
-      border-radius: 10px;
-      background: #292d32;
+
+    .secondary {
+
+      background: #e7edf3;
+
+      color: #17365d;
+
+    }
+
+
+    .danger {
+
+      background: #fee2e2;
+
+      color: #991b1b;
+
+    }
+
+
+    .notice {
+
+      margin-top: 12px;
+
+      padding: 12px 14px;
+
+      border-radius: 11px;
+
       line-height: 1.5;
+
       font-size: 14px;
+
+    }
+
+
+    .notice.info {
+
+      background: #e8f1f8;
+
+      color: #17466a;
+
+    }
+
+
+    .notice.ok {
+
+      background: #e6f6eb;
+
+      color: #166534;
+
+    }
+
+
+    .notice.warn {
+
+      background: #fff4d6;
+
+      color: #775300;
+
+    }
+
+
+    .notice.error {
+
+      background: #fde8e8;
+
+      color: #991b1b;
+
+    }
+
+
+    #bridgeFrame {
+
+      width: 1px;
+
+      height: 1px;
+
+      position: absolute;
+
+      left: -9999px;
+
+      border: 0;
+
+    }
+
+
+    #reader {
+
+      width: 100%;
+
+      overflow: hidden;
+
+      border-radius: 14px;
+
+      background: #111;
+
+    }
+
+
+    #reader video {
+
+      border-radius: 14px;
+
+    }
+
+
+    .scanner-status {
+
+      margin-top: 12px;
+
+      padding: 12px;
+
+      border-radius: 11px;
+
+      background: #f1f5f9;
+
+      text-align: center;
+
+      font-size: 14px;
+
+      line-height: 1.45;
+
+    }
+
+
+    .user-name {
+
+      font-size: 17px;
+
+      font-weight: 800;
+
+      color: #17365d;
+
+    }
+
+
+    .user-meta {
+
+      margin-top: 5px;
+
+      color: #64748b;
+
+      font-size: 13px;
+
+      line-height: 1.5;
+
+    }
+
+
+    .member-name {
+
+      margin-bottom: 14px;
+
+      color: #17365d;
+
+      font-size: 22px;
+
+      font-weight: 800;
+
+    }
+
+
+    .info-row {
+
+      display: grid;
+
+      grid-template-columns: 135px 1fr;
+
+      gap: 10px;
+
+      padding: 9px 0;
+
+      border-top: 1px solid #edf0f3;
+
+      font-size: 14px;
+
+    }
+
+
+    .info-label {
+
+      color: #64748b;
+
+      font-weight: 700;
+
+    }
+
+
+    .info-value {
+
+      font-weight: 600;
+
       word-break: break-word;
+
     }
 
-    .ok {
-      background: #143d25;
-      color: #b9f6ca;
+
+    .overlay {
+
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 999;
+
+      display: flex;
+
+      align-items: flex-end;
+
+      justify-content: center;
+
+      padding: 12px;
+
+      background: rgba(0,0,0,.55);
+
     }
 
-    .error {
-      background: #4a1717;
-      color: #ffcdd2;
+
+    .member-sheet {
+
+      width: 100%;
+
+      max-width: 560px;
+
+      max-height: 92%;
+
+      overflow-y: auto;
+
+      background: #ffffff;
+
+      border-radius: 20px;
+
+      padding: 18px;
+
+    }
+
+
+    .close-row {
+
+      display: flex;
+
+      justify-content: flex-end;
+
+    }
+
+
+    .close-btn {
+
+      width: auto;
+
+      min-width: 44px;
+
+      min-height: 44px;
+
+      margin: 0;
+
+      padding: 0 14px;
+
+      background: #edf2f7;
+
+      color: #334155;
+
+    }
+
+
+    .loading {
+
+      padding: 28px;
+
+      text-align: center;
+
+      color: #64748b;
+
+    }
+
+
+    @media (
+      max-width: 390px
+    ) {
+
+      .info-row {
+
+        grid-template-columns:
+          115px 1fr;
+
+      }
+
     }
 
   </style>
@@ -117,112 +515,1200 @@
 
 <body>
 
+
+<iframe
+
+  id="bridgeFrame"
+
+  title="Scanner Bridge"
+
+></iframe>
+
+
 <div class="app">
+
 
   <div class="header">
 
-    <h1>⛪ QUÉT QR ĐIỂM DANH</h1>
+    <h1>
+      ⛪ QUÉT QR ĐIỂM DANH
+    </h1>
 
     <p>
-      Xứ đoàn • Camera QR Scanner
+      Scanner V2 • Quét liên tục
     </p>
 
   </div>
 
 
-  <div class="card">
+  <!-- ==========================================================
+       SYSTEM
+       ========================================================== -->
 
-    <div id="reader"></div>
+  <div
+    id="systemCard"
+    class="card"
+  >
 
-    <button
-      id="startBtn"
-      class="start"
-      type="button">
-      📷 BẬT CAMERA
-    </button>
+    <div class="loading">
 
-    <button
-      id="stopBtn"
-      class="stop"
-      type="button"
-      style="display:none">
-      ⏹ DỪNG CAMERA
-    </button>
+      Đang kết nối hệ thống...
 
-    <div
-      id="status"
-      class="status">
-      Nhấn BẬT CAMERA để bắt đầu.
     </div>
 
   </div>
+
+
+  <!-- ==========================================================
+       LOGIN
+       ========================================================== -->
+
+  <div
+    id="loginCard"
+    class="card hidden"
+  >
+
+    <div class="section-title">
+
+      🔐 Xác thực người phụ trách
+
+    </div>
+
+
+    <label>
+
+      Gmail được Admin cấp quyền
+
+    </label>
+
+
+    <input
+
+      id="email"
+
+      type="email"
+
+      autocomplete="email"
+
+      placeholder="ten@gmail.com"
+
+    >
+
+
+    <button
+
+      id="sendOtpBtn"
+
+      type="button"
+
+      class="primary"
+
+    >
+
+      GỬI MÃ OTP
+
+    </button>
+
+
+    <div
+      id="otpArea"
+      class="hidden"
+    >
+
+      <label>
+
+        Mã OTP 6 chữ số
+
+      </label>
+
+
+      <input
+
+        id="otp"
+
+        type="text"
+
+        inputmode="numeric"
+
+        maxlength="6"
+
+        placeholder="000000"
+
+      >
+
+
+      <button
+
+        id="verifyOtpBtn"
+
+        type="button"
+
+        class="success"
+
+      >
+
+        XÁC THỰC
+
+      </button>
+
+    </div>
+
+
+    <div
+      id="loginMessage"
+    ></div>
+
+  </div>
+
+
+  <!-- ==========================================================
+       USER
+       ========================================================== -->
+
+  <div
+    id="userCard"
+    class="card hidden"
+  >
+
+    <div
+      id="userName"
+      class="user-name"
+    ></div>
+
+
+    <div
+      id="userMeta"
+      class="user-meta"
+    ></div>
+
+
+    <button
+
+      id="logoutBtn"
+
+      type="button"
+
+      class="secondary"
+
+    >
+
+      ĐĂNG XUẤT
+
+    </button>
+
+  </div>
+
+
+  <!-- ==========================================================
+       SCANNER
+       ========================================================== -->
+
+  <div
+    id="scannerCard"
+    class="card hidden"
+  >
+
+    <div class="section-title">
+
+      📷 Camera quét QR
+
+    </div>
+
+
+    <div id="reader"></div>
+
+
+    <button
+
+      id="startBtn"
+
+      type="button"
+
+      class="primary"
+
+    >
+
+      📷 BẬT CAMERA
+
+    </button>
+
+
+    <button
+
+      id="stopBtn"
+
+      type="button"
+
+      class="secondary hidden"
+
+    >
+
+      ⏹ DỪNG CAMERA
+
+    </button>
+
+
+    <div
+      id="scannerStatus"
+      class="scanner-status"
+    >
+
+      Nhấn BẬT CAMERA để bắt đầu.
+
+    </div>
+
+  </div>
+
+
+</div>
+
+
+<!-- ============================================================
+     MEMBER OVERLAY
+     ============================================================ -->
+
+<div
+  id="memberOverlay"
+  class="overlay hidden"
+>
+
+
+  <div class="member-sheet">
+
+
+    <div class="close-row">
+
+      <button
+
+        id="closeMemberBtn"
+
+        type="button"
+
+        class="close-btn"
+
+      >
+
+        ✕  
+
+      </button>
+
+    </div>
+
+
+    <div
+      id="memberLoading"
+      class="loading hidden"
+    >
+
+      Đang tìm thành viên...
+
+    </div>
+
+
+    <div
+      id="memberContent"
+    ></div>
+
+
+    <div
+      id="attendanceMessage"
+    ></div>
+
+
+    <button
+
+      id="confirmBtn"
+
+      type="button"
+
+      class="success hidden"
+
+    >
+
+      ✓ XÁC NHẬN ĐIỂM DANH
+
+    </button>
+
+
+    <button
+
+      id="nextBtn"
+
+      type="button"
+
+      class="primary hidden"
+
+    >
+
+      📷 QUÉT NGƯỜI TIẾP THEO
+
+    </button>
+
+
+  </div>
+
 
 </div>
 
 
 <script>
 
-  /*
-   * ==============================================================
-   * DÁN URL WEB APP 2A CỦA BẠN VÀO ĐÂY
-   * ==============================================================
-   */
+  /* ============================================================
+   * WEB APP BACKEND
+   * ============================================================ */
 
   const WEB_APP_URL =
+
     "https://script.google.com/macros/s/AKfycbxkDvxq50NMCg51ehGS_82vYJNDR4-wiSOq72B8bl94xZFWFQ0MHI4cPUsEevm5FDMzoA/exec";
 
 
-  let scanner = null;
+  const BRIDGE_URL =
 
-  let busy = false;
-
-
-  const startBtn =
-    document.getElementById("startBtn");
-
-  const stopBtn =
-    document.getElementById("stopBtn");
-
-  const statusBox =
-    document.getElementById("status");
+    WEB_APP_URL +
+    "?mode=bridge";
 
 
-  function setStatus(
-    message,
-    type = ""
-  ) {
+  const SESSION_KEY =
 
-    statusBox.className =
-      "status " + type;
+    "XD_SCANNER_V2_SESSION";
 
-    statusBox.textContent =
-      message;
+
+  /* ============================================================
+   * STATE
+   * ============================================================ */
+
+  let bridgeReady =
+    false;
+
+
+  let scanner =
+    null;
+
+
+  let scannerRunning =
+    false;
+
+
+  let scannerPaused =
+    false;
+
+
+  let scanBusy =
+    false;
+
+
+  let currentMember =
+    null;
+
+
+  let challengeId =
+    "";
+
+
+  let sessionToken =
+    localStorage.getItem(
+      SESSION_KEY
+    ) || "";
+
+
+  let requestCounter =
+    0;
+
+
+  const pendingRequests =
+    new Map();
+
+
+  /* ============================================================
+   * DOM
+   * ============================================================ */
+
+  const $ =
+    id =>
+      document.getElementById(id);
+
+
+  const bridge =
+    $("bridgeFrame");
+
+
+  bridge.src =
+    BRIDGE_URL;
+
+
+  /* ============================================================
+   * BASIC
+   * ============================================================ */
+
+  function show(id) {
+
+    $(id).classList.remove(
+      "hidden"
+    );
 
   }
 
 
-  /*
-   * ==============================================================
-   * CHUẨN HÓA ID
-   * ==============================================================
-   */
+  function hide(id) {
+
+    $(id).classList.add(
+      "hidden"
+    );
+
+  }
+
+
+  function escapeHtml(value) {
+
+    return String(
+      value ?? ""
+    )
+
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+
+      .replace(
+        /</g,
+        "&lt;"
+      )
+
+      .replace(
+        />/g,
+        "&gt;"
+      )
+
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+
+      .replace(
+        /'/g,
+        "&#39;"
+      );
+
+  }
+
+
+  function notice(
+    type,
+    message
+  ) {
+
+    return (
+
+      '<div class="notice ' +
+      type +
+      '">' +
+
+      escapeHtml(
+        message
+      ) +
+
+      '</div>'
+
+    );
+
+  }
+
+
+  function setBusy(
+    button,
+    busy,
+    busyText
+  ) {
+
+    if (
+      !button.dataset.normalText
+    ) {
+
+      button.dataset.normalText =
+        button.textContent;
+
+    }
+
+
+    button.disabled =
+      !!busy;
+
+
+    button.textContent =
+      busy
+        ? busyText
+        : button.dataset.normalText;
+
+  }
+
+
+  /* ============================================================
+   * BRIDGE RPC
+   * ============================================================ */
+
+  function bridgeCall(
+    action,
+    payload = {},
+    timeout = 20000
+  ) {
+
+    return new Promise(
+      function(
+        resolve,
+        reject
+      ) {
+
+        if (
+          !bridge.contentWindow
+        ) {
+
+          reject(
+            new Error(
+              "Bridge chưa sẵn sàng."
+            )
+          );
+
+          return;
+
+        }
+
+
+        requestCounter++;
+
+
+        const requestId =
+
+          Date.now() +
+          "_" +
+          requestCounter;
+
+
+        const timer =
+          setTimeout(
+            function() {
+
+              pendingRequests.delete(
+                requestId
+              );
+
+
+              reject(
+                new Error(
+                  "Hệ thống phản hồi quá lâu."
+                )
+              );
+
+            },
+
+            timeout
+
+          );
+
+
+        pendingRequests.set(
+
+          requestId,
+
+          {
+
+            resolve:
+              resolve,
+
+            reject:
+              reject,
+
+            timer:
+              timer
+
+          }
+
+        );
+
+
+        bridge.contentWindow
+          .postMessage(
+
+            {
+
+              source:
+                "XD_SCANNER_V2",
+
+              requestId:
+                requestId,
+
+              action:
+                action,
+
+              payload:
+                payload
+
+            },
+
+            "*"
+
+          );
+
+      }
+    );
+
+  }
+
+
+  window.addEventListener(
+
+    "message",
+
+    function(event) {
+
+      if (
+        event.source !==
+        bridge.contentWindow
+      ) {
+
+        return;
+
+      }
+
+
+      const message =
+        event.data || {};
+
+
+      if (
+        message.source !==
+        "XD_SCANNER_BRIDGE"
+      ) {
+
+        return;
+
+      }
+
+
+      const request =
+        pendingRequests.get(
+          message.requestId
+        );
+
+
+      if (!request) {
+
+        return;
+
+      }
+
+
+      clearTimeout(
+        request.timer
+      );
+
+
+      pendingRequests.delete(
+        message.requestId
+      );
+
+
+      if (
+        message.ok
+      ) {
+
+        request.resolve(
+          message.data
+        );
+
+      } else {
+
+        request.reject(
+
+          new Error(
+            message.error ||
+            "Lỗi hệ thống."
+          )
+
+        );
+
+      }
+
+    }
+
+  );
+
+
+  /* ============================================================
+   * START BRIDGE
+   * ============================================================ */
+
+  bridge.addEventListener(
+
+    "load",
+
+    async function() {
+
+      try {
+
+        await bridgeCall(
+          "hello",
+          {},
+          10000
+        );
+
+
+        bridgeReady =
+          true;
+
+
+        await bootstrap();
+
+      } catch (err) {
+
+        $("systemCard").innerHTML =
+
+          notice(
+            "error",
+
+            "Không kết nối được Scanner Backend. " +
+
+            "Hãy kiểm tra URL GitHub đã được khai báo tại CẤU HÌNH!J14."
+          );
+
+      }
+
+    }
+
+  );
+
+
+  /* ============================================================
+   * BOOTSTRAP
+   * ============================================================ */
+
+  async function bootstrap() {
+
+    try {
+
+      const result =
+        await bridgeCall(
+
+          "bootstrap",
+
+          {
+            token:
+              sessionToken
+          }
+
+        );
+
+
+      hide(
+        "systemCard"
+      );
+
+
+      if (
+        !result.authenticated
+      ) {
+
+        sessionToken =
+          "";
+
+
+        localStorage.removeItem(
+          SESSION_KEY
+        );
+
+
+        show(
+          "loginCard"
+        );
+
+
+        return;
+
+      }
+
+
+      loginComplete(
+        result.user
+      );
+
+
+    } catch (err) {
+
+      $("systemCard").innerHTML =
+
+        notice(
+          "error",
+          err.message
+        );
+
+    }
+
+  }
+
+
+  /* ============================================================
+   * LOGIN COMPLETE
+   * ============================================================ */
+
+  function loginComplete(user) {
+
+    hide(
+      "loginCard"
+    );
+
+
+    hide(
+      "systemCard"
+    );
+
+
+    show(
+      "userCard"
+    );
+
+
+    show(
+      "scannerCard"
+    );
+
+
+    $("userName").textContent =
+      user.name;
+
+
+    const classes =
+
+      user.classes &&
+      user.classes.length
+
+        ? user.classes.join(", ")
+
+        : "—";
+
+
+    const branches =
+
+      user.branches &&
+      user.branches.length
+
+        ? user.branches.join(", ")
+
+        : "—";
+
+
+    $("userMeta").innerHTML =
+
+      escapeHtml(
+        user.email
+      ) +
+
+      "<br><b>Quyền:</b> " +
+
+      escapeHtml(
+        user.role
+      ) +
+
+      "<br><b>Lớp:</b> " +
+
+      escapeHtml(
+        classes
+      ) +
+
+      "<br><b>Ngành:</b> " +
+
+      escapeHtml(
+        branches
+      );
+
+  }
+
+
+  /* ============================================================
+   * REQUEST OTP
+   * ============================================================ */
+
+  $("sendOtpBtn")
+    .addEventListener(
+
+      "click",
+
+      async function() {
+
+        const email =
+          $("email")
+            .value
+            .trim();
+
+
+        if (!email) {
+
+          $("loginMessage").innerHTML =
+
+            notice(
+              "warn",
+              "Vui lòng nhập Gmail."
+            );
+
+          return;
+
+        }
+
+
+        setBusy(
+
+          this,
+
+          true,
+
+          "ĐANG GỬI..."
+
+        );
+
+
+        try {
+
+          const result =
+            await bridgeCall(
+
+              "requestOtp",
+
+              {
+                email:
+                  email
+              }
+
+            );
+
+
+          challengeId =
+            result.challengeId;
+
+
+          show(
+            "otpArea"
+          );
+
+
+          $("loginMessage").innerHTML =
+
+            notice(
+
+              "ok",
+
+              "OTP đã được gửi tới " +
+              result.maskedEmail
+
+            );
+
+
+          $("otp").focus();
+
+
+        } catch (err) {
+
+          $("loginMessage").innerHTML =
+
+            notice(
+              "error",
+              err.message
+            );
+
+        } finally {
+
+          setBusy(
+
+            this,
+
+            false,
+
+            ""
+
+          );
+
+        }
+
+      }
+
+    );
+
+
+  /* ============================================================
+   * VERIFY OTP
+   * ============================================================ */
+
+  $("verifyOtpBtn")
+    .addEventListener(
+
+      "click",
+
+      async function() {
+
+        const otp =
+          $("otp")
+            .value
+            .trim();
+
+
+        if (
+          !challengeId
+        ) {
+
+          $("loginMessage").innerHTML =
+
+            notice(
+
+              "warn",
+
+              "Hãy gửi OTP trước."
+
+            );
+
+          return;
+
+        }
+
+
+        setBusy(
+
+          this,
+
+          true,
+
+          "ĐANG XÁC THỰC..."
+
+        );
+
+
+        try {
+
+          const result =
+            await bridgeCall(
+
+              "verifyOtp",
+
+              {
+
+                challengeId:
+                  challengeId,
+
+                otp:
+                  otp
+
+              }
+
+            );
+
+
+          sessionToken =
+            result.token;
+
+
+          localStorage.setItem(
+
+            SESSION_KEY,
+
+            sessionToken
+
+          );
+
+
+          loginComplete(
+            result.user
+          );
+
+
+        } catch (err) {
+
+          $("loginMessage").innerHTML =
+
+            notice(
+              "error",
+              err.message
+            );
+
+        } finally {
+
+          setBusy(
+
+            this,
+
+            false,
+
+            ""
+
+          );
+
+        }
+
+      }
+
+    );
+
+
+  /* ============================================================
+   * LOGOUT
+   * ============================================================ */
+
+  $("logoutBtn")
+    .addEventListener(
+
+      "click",
+
+      async function() {
+
+        try {
+
+          if (
+            sessionToken
+          ) {
+
+            await bridgeCall(
+
+              "logout",
+
+              {
+                token:
+                  sessionToken
+              }
+
+            );
+
+          }
+
+        } catch (err) {}
+
+
+        sessionToken =
+          "";
+
+
+        localStorage.removeItem(
+          SESSION_KEY
+        );
+
+
+        location.reload();
+
+      }
+
+    );
+
+
+  /* ============================================================
+   * EXTRACT ID
+   * ============================================================ */
 
   function extractId(text) {
 
     if (!text) {
+
       return "";
+
     }
 
 
     let value =
       String(text).trim();
 
-
-    /*
-     * QR dạng:
-     *
-     * https://.../exec?id=XD-XXXXXXXXXXXX
-     */
 
     try {
 
@@ -231,26 +1717,20 @@
 
 
       const id =
-        url.searchParams.get("id");
+        url.searchParams.get(
+          "id"
+        );
 
 
       if (id) {
 
-        value = id;
+        value =
+          id;
 
       }
 
-    } catch (e) {
+    } catch (err) {}
 
-      // Không phải URL.
-    }
-
-
-    /*
-     * QR cũ dạng:
-     *
-     * XD|XD-XXXXXXXXXXXX
-     */
 
     value =
       value.replace(
@@ -265,14 +1745,10 @@
         .toUpperCase();
 
 
-    /*
-     * ID Giai đoạn 1:
-     *
-     * XD- + 12 ký tự HEX.
-     */
-
     if (
-      !/^XD-[A-F0-9]{12}$/.test(value)
+      !/^XD-[A-F0-9]{12}$/.test(
+        value
+      )
     ) {
 
       return "";
@@ -285,107 +1761,23 @@
   }
 
 
-  /*
-   * ==============================================================
-   * QUÉT THÀNH CÔNG
-   * ==============================================================
-   */
-
-  async function onScanSuccess(
-    decodedText
-  ) {
-
-    if (busy) {
-      return;
-    }
-
-
-    const id =
-      extractId(
-        decodedText
-      );
-
-
-    if (!id) {
-
-      setStatus(
-        "❌ Mã QR không thuộc hệ thống Xứ đoàn.",
-        "error"
-      );
-
-      return;
-
-    }
-
-
-    busy = true;
-
-
-    setStatus(
-      "✅ Đã nhận: " +
-      id +
-      "\nĐang mở hệ thống điểm danh...",
-      "ok"
-    );
-
-
-    /*
-     * Dừng camera trước khi chuyển trang.
-     */
-
-    try {
-
-      if (scanner) {
-
-        await scanner.stop();
-
-      }
-
-    } catch (e) {}
-
-
-    /*
-     * Chuyển sang Web App 2A.
-     */
-
-    const destination =
-      WEB_APP_URL +
-      "?id=" +
-      encodeURIComponent(id);
-
-
-    window.location.href =
-      destination;
-
-  }
-
-
-  /*
-   * ==============================================================
-   * BẬT CAMERA
-   * ==============================================================
-   */
+  /* ============================================================
+   * START CAMERA
+   * ============================================================ */
 
   async function startCamera() {
 
     if (
-      !WEB_APP_URL ||
-      WEB_APP_URL.includes(
-        "DAN_URL_WEB_APP"
-      )
+      scannerRunning
     ) {
-
-      setStatus(
-        "❌ Chưa cấu hình WEB_APP_URL.",
-        "error"
-      );
 
       return;
 
     }
 
 
-    busy = false;
+    scanBusy =
+      false;
 
 
     scanner =
@@ -399,63 +1791,91 @@
       await scanner.start(
 
         {
-          facingMode: "environment"
+
+          facingMode:
+            "environment"
+
         },
 
         {
-          fps: 12,
+
+          fps:
+            12,
 
           qrbox: {
-            width: 250,
-            height: 250
-          }
+
+            width:
+              250,
+
+            height:
+              250
+
+          },
+
+          aspectRatio:
+            1.0
+
         },
 
         onScanSuccess,
 
-        function() {
-          // Bỏ qua frame không đọc được.
-        }
+        function() {}
 
       );
 
 
-      startBtn.style.display =
-        "none";
+      scannerRunning =
+        true;
 
 
-      stopBtn.style.display =
-        "block";
+      scannerPaused =
+        false;
 
 
-      setStatus(
-        "📷 Camera đã bật. Đưa mã QR vào giữa khung."
+      hide(
+        "startBtn"
       );
+
+
+      show(
+        "stopBtn"
+      );
+
+
+      $("scannerStatus").textContent =
+
+        "📷 Camera đang hoạt động. Đưa QR vào giữa khung.";
 
 
     } catch (err) {
 
-      setStatus(
+      scannerRunning =
+        false;
+
+
+      $("scannerStatus").textContent =
+
         "❌ Không thể bật camera: " +
-        err,
-        "error"
-      );
+        err;
 
     }
 
   }
 
 
-  /*
-   * ==============================================================
-   * DỪNG CAMERA
-   * ==============================================================
-   */
+  /* ============================================================
+   * STOP CAMERA
+   * ============================================================ */
 
   async function stopCamera() {
 
-    if (!scanner) {
+    if (
+      !scanner ||
+      !scannerRunning
+    ) {
+
       return;
+
     }
 
 
@@ -465,39 +1885,679 @@
 
       scanner.clear();
 
-    } catch (e) {}
+    } catch (err) {}
 
 
-    scanner = null;
+    scanner =
+      null;
 
 
-    startBtn.style.display =
-      "block";
+    scannerRunning =
+      false;
 
 
-    stopBtn.style.display =
-      "none";
+    scannerPaused =
+      false;
 
 
-    setStatus(
-      "Camera đã dừng."
+    show(
+      "startBtn"
+    );
+
+
+    hide(
+      "stopBtn"
+    );
+
+
+    $("scannerStatus").textContent =
+
+      "Camera đã dừng.";
+
+  }
+
+
+  $("startBtn")
+    .addEventListener(
+      "click",
+      startCamera
+    );
+
+
+  $("stopBtn")
+    .addEventListener(
+      "click",
+      stopCamera
+    );
+
+
+  /* ============================================================
+   * PAUSE CAMERA
+   * ============================================================ */
+
+  function pauseCamera() {
+
+    if (
+      !scanner ||
+      !scannerRunning
+    ) {
+
+      return;
+
+    }
+
+
+    try {
+
+      scanner.pause(
+        true
+      );
+
+
+      scannerPaused =
+        true;
+
+    } catch (err) {}
+
+  }
+
+
+  /* ============================================================
+   * RESUME CAMERA
+   * ============================================================ */
+
+  async function resumeCamera() {
+
+    scanBusy =
+      false;
+
+
+    if (
+      scanner &&
+      scannerRunning
+    ) {
+
+      try {
+
+        if (
+          scannerPaused
+        ) {
+
+          scanner.resume();
+
+
+          scannerPaused =
+            false;
+
+        }
+
+
+        $("scannerStatus").textContent =
+
+          "📷 Sẵn sàng quét người tiếp theo.";
+
+
+        return;
+
+      } catch (err) {}
+
+    }
+
+
+    if (
+      !scannerRunning
+    ) {
+
+      await startCamera();
+
+    }
+
+  }
+
+
+  /* ============================================================
+   * QR SUCCESS
+   * ============================================================ */
+
+  async function onScanSuccess(
+    decodedText
+  ) {
+
+    if (
+      scanBusy
+    ) {
+
+      return;
+
+    }
+
+
+    const id =
+      extractId(
+        decodedText
+      );
+
+
+    if (!id) {
+
+      $("scannerStatus").textContent =
+
+        "❌ QR không thuộc hệ thống Xứ đoàn.";
+
+      return;
+
+    }
+
+
+    scanBusy =
+      true;
+
+
+    pauseCamera();
+
+
+    $("scannerStatus").textContent =
+
+      "✅ Đã nhận " +
+      id;
+
+
+    show(
+      "memberOverlay"
+    );
+
+
+    show(
+      "memberLoading"
+    );
+
+
+    hide(
+      "confirmBtn"
+    );
+
+
+    hide(
+      "nextBtn"
+    );
+
+
+    $("memberContent").innerHTML =
+      "";
+
+
+    $("attendanceMessage").innerHTML =
+      "";
+
+
+    try {
+
+      const result =
+        await bridgeCall(
+
+          "lookup",
+
+          {
+
+            token:
+              sessionToken,
+
+            id:
+              id
+
+          }
+
+        );
+
+
+      currentMember =
+        result.member;
+
+
+      hide(
+        "memberLoading"
+      );
+
+
+      renderMember(
+        currentMember
+      );
+
+
+    } catch (err) {
+
+      hide(
+        "memberLoading"
+      );
+
+
+      currentMember =
+        null;
+
+
+      $("attendanceMessage").innerHTML =
+
+        notice(
+          "error",
+          cleanAuthError(
+            err.message
+          )
+        );
+
+
+      show(
+        "nextBtn"
+      );
+
+
+      if (
+        isAuthError(
+          err.message
+        )
+      ) {
+
+        clearSession();
+
+      }
+
+    }
+
+  }
+
+
+  /* ============================================================
+   * MEMBER
+   * ============================================================ */
+
+  function renderMember(member) {
+
+    $("memberContent").innerHTML =
+
+      '<div class="member-name">' +
+
+      escapeHtml(
+        member.name
+      ) +
+
+      '</div>' +
+
+
+      infoRow(
+        "ID",
+        member.id
+      ) +
+
+
+      infoRow(
+        "Ngày sinh",
+        member.birthday
+      ) +
+
+
+      infoRow(
+        "Lớp",
+        member.className
+      ) +
+
+
+      infoRow(
+        "Ngành",
+        member.branch
+      ) +
+
+
+      infoRow(
+        "Giáo xứ / Giáo họ",
+        member.parish
+      ) +
+
+
+      infoRow(
+        "Phụ huynh",
+        member.parentName
+      ) +
+
+
+      infoRow(
+        "Số điện thoại",
+        member.phone
+      );
+
+
+    if (
+      member.alreadyChecked
+    ) {
+
+      $("attendanceMessage").innerHTML =
+
+        notice(
+
+          "warn",
+
+          "ĐÃ ĐIỂM DANH lúc " +
+
+          member.checkedTime +
+
+          (
+            member.checkedBy
+
+              ? " • " +
+                member.checkedBy
+
+              : ""
+          )
+
+        );
+
+
+      show(
+        "nextBtn"
+      );
+
+
+      return;
+
+    }
+
+
+    if (
+      !member.canConfirm
+    ) {
+
+      $("attendanceMessage").innerHTML =
+
+        notice(
+
+          "info",
+
+          "Bạn chỉ có quyền xem thành viên này."
+
+        );
+
+
+      show(
+        "nextBtn"
+      );
+
+
+      return;
+
+    }
+
+
+    $("attendanceMessage").innerHTML =
+
+      notice(
+
+        "info",
+
+        "Chưa điểm danh hôm nay."
+
+      );
+
+
+    show(
+      "confirmBtn"
     );
 
   }
 
 
-  startBtn.addEventListener(
-    "click",
-    startCamera
-  );
+  function infoRow(
+    label,
+    value
+  ) {
+
+    return (
+
+      '<div class="info-row">' +
+
+        '<div class="info-label">' +
+
+        escapeHtml(label) +
+
+        '</div>' +
+
+        '<div class="info-value">' +
+
+        escapeHtml(
+          value || "—"
+        ) +
+
+        '</div>' +
+
+      '</div>'
+
+    );
+
+  }
 
 
-  stopBtn.addEventListener(
-    "click",
-    stopCamera
-  );
+  /* ============================================================
+   * CONFIRM
+   * ============================================================ */
+
+  $("confirmBtn")
+    .addEventListener(
+
+      "click",
+
+      async function() {
+
+        if (
+          !currentMember
+        ) {
+
+          return;
+
+        }
+
+
+        setBusy(
+
+          this,
+
+          true,
+
+          "ĐANG GHI..."
+
+        );
+
+
+        try {
+
+          const result =
+            await bridgeCall(
+
+              "confirm",
+
+              {
+
+                token:
+                  sessionToken,
+
+                id:
+                  currentMember.id
+
+              }
+
+            );
+
+
+          hide(
+            "confirmBtn"
+          );
+
+
+          if (
+            result.duplicate
+          ) {
+
+            $("attendanceMessage").innerHTML =
+
+              notice(
+
+                "warn",
+
+                "ĐÃ ĐIỂM DANH lúc " +
+                result.time
+
+              );
+
+          } else {
+
+            $("attendanceMessage").innerHTML =
+
+              notice(
+
+                "ok",
+
+                "✓ ĐIỂM DANH THÀNH CÔNG • " +
+                result.time
+
+              );
+
+          }
+
+
+          show(
+            "nextBtn"
+          );
+
+
+        } catch (err) {
+
+          $("attendanceMessage").innerHTML =
+
+            notice(
+              "error",
+              cleanAuthError(
+                err.message
+              )
+            );
+
+
+          show(
+            "nextBtn"
+          );
+
+
+          if (
+            isAuthError(
+              err.message
+            )
+          ) {
+
+            clearSession();
+
+          }
+
+        } finally {
+
+          setBusy(
+
+            this,
+
+            false,
+
+            ""
+
+          );
+
+        }
+
+      }
+
+    );
+
+
+  /* ============================================================
+   * NEXT
+   * ============================================================ */
+
+  $("nextBtn")
+    .addEventListener(
+
+      "click",
+
+      closeMemberAndContinue
+
+    );
+
+
+  $("closeMemberBtn")
+    .addEventListener(
+
+      "click",
+
+      closeMemberAndContinue
+
+    );
+
+
+  async function closeMemberAndContinue() {
+
+    hide(
+      "memberOverlay"
+    );
+
+
+    currentMember =
+      null;
+
+
+    await resumeCamera();
+
+  }
+
+
+  /* ============================================================
+   * AUTH ERROR
+   * ============================================================ */
+
+  function isAuthError(
+    message
+  ) {
+
+    return String(
+      message || ""
+    )
+      .includes(
+        "AUTH_REQUIRED|"
+      );
+
+  }
+
+
+  function cleanAuthError(
+    message
+  ) {
+
+    return String(
+      message || ""
+    )
+      .replace(
+        "AUTH_REQUIRED|",
+        ""
+      );
+
+  }
+
+
+  function clearSession() {
+
+    sessionToken =
+      "";
+
+
+    localStorage.removeItem(
+      SESSION_KEY
+    );
+
+  }
 
 </script>
+
 
 </body>
 
